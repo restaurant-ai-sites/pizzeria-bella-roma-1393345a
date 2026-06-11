@@ -1,0 +1,48 @@
+{
+  "restaurant": {
+    "name": "Pizzeria Bella Roma",
+    "tagline": "Authentische italienische Küche in Berlin",
+    "about": "Willkommen in der Pizzeria Bella Roma! Seit 2010 verwöhnen wir unsere Gäste mit traditionellen italienischen Gerichten in einem familiären und einladenden Ambiente. Ob für ein romantisches Dinner zu zweit oder ein geselliges Familienessen, bei uns finden Sie die perfekte Atmosphäre. Genießen Sie unsere frisch zubereiteten Pizzen, Pasta und vegetarischen Optionen. Wir freuen uns, Sie bald bei uns begrüßen zu dürfen!",
+    "phone": "030 2845 6790",
+    "email": "info@bellaroma-berlin.de",
+    "address": "Hauptstraße 15, 10115 Berlin",
+    "openingHours": {
+      "monday": "kapalı",
+      "tuesday": "11:30-22:00",
+      "wednesday": "11:30-22:00",
+      "thursday": "11:30-22:00",
+      "friday": "11:30-22:00",
+      "saturday": "11:30-22:00",
+      "sunday": "12:00-21:00"
+    },
+    "cuisine": "İtalyan mutfağı",
+    "priceRange": "mid"
+  },
+  "seo": {
+    "title": "Pizzeria Bella Roma - Italienische Küche in Berlin",
+    "description": "Entdecken Sie die Pizzeria Bella Roma in Berlin. Genießen Sie authentische italienische Gerichte in einem familiären Ambiente."
+  },
+  "content": {
+    "welcomeHeading": "Herzlich Willkommen bei Bella Roma",
+    "welcomeSubtext": "Genießen Sie italienische Spezialitäten in Berlin.",
+    "reservationCta": "Jetzt Tisch reservieren",
+    "orderCta": "Essen online bestellen",
+    "contactHeading": "Kontaktieren Sie uns",
+    "footerText": "Ihr italienisches Restaurant in Berlin."
+  },
+  "images": {
+    "interior": "/images/interior_0.webp",
+    "food": "/images/food_4.webp",
+    "hero": "/images/hero_generated.webp"
+  },
+  "features": {
+    "hasReservation": true,
+    "hasOrdering": true,
+    "paypalClientId": ""
+  },
+  "menu": [],
+  "legal": {
+    "impressum": "## Impressum\n\n**Angaben gemäß § 5 TMG**\n\nPizzeria Bella Roma\nHauptstraße 15, 10115 Berlin\n030 2845 6790\ninfo@bellaroma-berlin.de\n\n**Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:**\nPizzeria Bella Roma\n\n**Haftungsausschluss:**\nDie Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.\n\n**Urheberrecht:**\nDie durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.\n",
+    "datenschutz": "## Datenschutzerklärung\n\n**1. Datenschutz auf einen Blick**\n\nDiese Datenschutzerklärung klärt Sie über die Art, den Umfang und Zweck der Verarbeitung von personenbezogenen Daten auf unserer Website auf.\n\n**2. Verantwortliche Stelle**\n\nPizzeria Bella Roma\nHauptstraße 15, 10115 Berlin\nE-Mail: info@bellaroma-berlin.de\n\n**3. Erhebung und Speicherung personenbezogener Daten**\n\nBeim Besuch unserer Website werden automatisch Informationen allgemeiner Natur erfasst (Server-Log-Dateien). Diese Daten erlauben keine Rückschlüsse auf Ihre Person.\n\n**4. Kontaktformular**\n\nWenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben zwecks Bearbeitung der Anfrage und für den Fall von Anschlussfragen gespeichert.\n\n**5. Cookies**\n\nUnsere Website verwendet Cookies. Durch die Nutzung unserer Website erklären Sie sich damit einverstanden.\n\n**6. Ihre Rechte**\n\nSie haben jederzeit das Recht auf Auskunft, Berichtigung, Löschung oder Einschränkung der Verarbeitung Ihrer gespeicherten personenbezogenen Daten.\n\n**7. Kontakt Datenschutzbeauftragter**\n\nBei Fragen zum Datenschutz wenden Sie sich an: info@bellaroma-berlin.de\n"
+  }
+}
