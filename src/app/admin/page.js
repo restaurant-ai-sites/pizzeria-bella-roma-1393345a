@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 
 const inputCls =
   "w-full rounded-xl border border-coffee/20 bg-cream px-3 py-2 outline-none focus:border-terra";
@@ -77,8 +77,8 @@ export default function AdminPage() {
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
       <h1 className="font-display text-3xl font-extrabold">Admin-Bereich</h1>
-      <div className="mt-6 flex gap-2 border-b border-coffee/15">
-        {[["bestellungen", "📋 Bestellungen"], ["speisekarte", "🍕 Speisekarte"], ["einstellungen", "⚙️ Einstellungen"]].map(([id, label]) => (
+      <div className="mt-6 flex gap-2 border-b border-coffee/15 flex-wrap">
+        {[["bestellungen", "📋 Bestellungen"], ["bilder", "🖼 Bilder"], ["speisekarte", "🍕 Speisekarte"], ["einstellungen", "⚙️ Einstellungen"]].map(([id, label]) => (
           <button key={id} onClick={() => setTab(id)}
             className={`px-4 py-2.5 text-sm ${tab === id ? "border-b-2 border-terra font-bold" : "text-coffee/60"}`}>
             {label}
@@ -86,9 +86,88 @@ export default function AdminPage() {
         ))}
       </div>
       {tab === "bestellungen" && <OrdersTab adminKey={adminKey} />}
+      {tab === "bilder" && <BilderTab adminKey={adminKey} />}
       {tab === "speisekarte" && <MenuTab adminKey={adminKey} />}
       {tab === "einstellungen" && <SettingsTab adminKey={adminKey} />}
     </main>
+  );
+}
+
+const IMAGE_SLOTS = [
+  { key: "hero", label: "Hero (Kapak Fotoğrafı)" },
+  { key: "about", label: "Hakkımızda Görseli" },
+  { key: "speisekarte", label: "Speisekarte Görseli" },
+  { key: "gallery_1", label: "Galeri 1" },
+  { key: "gallery_2", label: "Galeri 2" },
+  { key: "gallery_3", label: "Galeri 3" },
+  { key: "gallery_4", label: "Galeri 4" },
+  { key: "gallery_5", label: "Galeri 5" },
+];
+
+function BilderTab({ adminKey }) {
+  const [images, setImages] = useState({});
+  const [uploading, setUploading] = useState({});
+  const [msg, setMsg] = useState("");
+
+  useEffect(() => {
+    fetch("/api/admin/images", { headers: { "x-admin-key": adminKey } })
+      .then((r) => r.json()).then((d) => setImages(d.images || {}));
+  }, [adminKey]);
+
+  async function upload(slotKey, file) {
+    setUploading((p) => ({ ...p, [slotKey]: true }));
+    setMsg("");
+    try {
+      const fd = new FormData();
+      fd.append("key", slotKey);
+      fd.append("file", file);
+      const res = await fetch("/api/admin/images", { method: "POST", headers: { "x-admin-key": adminKey }, body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      setImages((p) => ({ ...p, [slotKey]: data.url }));
+      setMsg("✓ Hochgeladen!");
+    } catch (e) { setMsg("Fehler: " + e.message); }
+    finally { setUploading((p) => ({ ...p, [slotKey]: false })); }
+  }
+
+  async function remove(slotKey) {
+    if (!confirm("Dieses Bild entfernen?")) return;
+    await fetch(`/api/admin/images?key=${slotKey}`, { method: "DELETE", headers: { "x-admin-key": adminKey } });
+    setImages((p) => { const n = { ...p }; delete n[slotKey]; return n; });
+  }
+
+  return (
+    <div className="mt-8 space-y-5">
+      {msg && <p className="text-sm text-green-700 bg-green-50 px-3 py-2 rounded-xl">{msg}</p>}
+      {IMAGE_SLOTS.map(({ key, label }) => (
+        <ImageSlot key={key} slotKey={key} label={label} url={images[key]}
+          uploading={!!uploading[key]} onUpload={(f) => upload(key, f)} onRemove={() => remove(key)} />
+      ))}
+    </div>
+  );
+}
+
+function ImageSlot({ slotKey, label, url, uploading, onUpload, onRemove }) {
+  const fileRef = useRef(null);
+  return (
+    <div className="rounded-2xl border border-coffee/15 p-4">
+      <p className="text-sm font-medium text-coffee mb-3">{label}</p>
+      {url ? (
+        <div className="flex items-start gap-3">
+          <img src={url} alt={slotKey} className="h-24 w-36 object-cover rounded-xl border border-coffee/10" />
+          <div className="flex flex-col gap-2">
+            <button onClick={() => fileRef.current?.click()} disabled={uploading} className={btnCls}>Ersetzen</button>
+            <button onClick={onRemove} className="text-xs text-red-600 hover:underline">Entfernen</button>
+          </div>
+        </div>
+      ) : (
+        <button onClick={() => fileRef.current?.click()} disabled={uploading} className={`${btnCls} w-full`}>
+          {uploading ? "Lädt hoch…" : "📁 Bild hochladen"}
+        </button>
+      )}
+      <input ref={fileRef} type="file" accept="image/*" className="hidden"
+        onChange={(e) => { const f = e.target.files?.[0]; if (f) onUpload(f); e.target.value = ""; }} />
+    </div>
   );
 }
 
