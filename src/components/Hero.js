@@ -23,42 +23,63 @@ export default async function Hero() {
   const images = { ...defaultImages, ...overrides };
 
   return (
-    <section className="relative overflow-hidden bg-sand">
-      <div className="mx-auto grid max-w-5xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:py-24">
-        <div>
-          <span className="inline-block rounded-full bg-terra/15 px-4 py-1.5 text-sm font-semibold text-terradark">
-            {restaurant.cuisine || restaurant.tagline} 🔥
-          </span>
-          <h1 className="mt-5 font-display text-4xl font-extrabold leading-tight sm:text-6xl">
-            {content.welcomeHeading || restaurant.name}
-          </h1>
-          {content.welcomeSubtext && (
-            <p className="mt-4 max-w-md text-lg text-coffee/75">{content.welcomeSubtext}</p>
-          )}
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
-              href="/#speisekarte"
-              className="rounded-full bg-terra px-8 py-4 font-display font-bold text-white shadow-lg shadow-terra/30 transition-all hover:bg-terradark"
-            >
-              {content.orderCta || "Jetzt bestellen"} →
-            </a>
-            <a href="/#kontakt" className="font-semibold underline underline-offset-4 hover:text-terra">
-              Öffnungszeiten
-            </a>
-          </div>
-        </div>
-
-        {images.hero ? (
+    <section className="relative flex min-h-[85vh] items-center justify-center overflow-hidden">
+      {images.hero ? (
+        <>
           <img
             src={images.hero}
             alt={restaurant.name}
-            className="h-80 w-full rounded-3xl object-cover shadow-2xl md:h-96"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ animation: "heroZoom 14s ease-out forwards" }}
           />
-        ) : (
-          <div className="flex h-80 w-full items-center justify-center rounded-3xl bg-gradient-to-br from-terra to-terradark md:h-96">
-            <span className="text-8xl">🍕</span>
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/45 to-black/75" />
+        </>
+      ) : (
+        <div className="absolute inset-0 bg-gradient-to-br from-terradark via-coffee to-terra" />
+      )}
+
+      <div className="relative z-10 mx-auto max-w-3xl px-4 py-24 text-center text-white">
+        <span
+          className="inline-block rounded-full border border-white/30 bg-white/10 px-5 py-2 text-sm font-semibold backdrop-blur-sm"
+          style={{ animation: "fadeUp 0.9s ease-out both" }}
+        >
+          {restaurant.cuisine || restaurant.tagline} 🍕
+        </span>
+
+        <h1
+          className="mt-6 font-display text-5xl font-extrabold leading-[1.02] sm:text-7xl"
+          style={{ animation: "fadeUp 0.9s ease-out 0.15s both" }}
+        >
+          {content.welcomeHeading || restaurant.name}
+        </h1>
+
+        {content.welcomeSubtext && (
+          <p
+            className="mx-auto mt-6 max-w-xl text-lg text-white/85"
+            style={{ animation: "fadeUp 0.9s ease-out 0.3s both" }}
+          >
+            {content.welcomeSubtext}
+          </p>
         )}
+
+        <div
+          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          style={{ animation: "fadeUp 0.9s ease-out 0.45s both" }}
+        >
+          <a
+            href="/#speisekarte"
+            className="group inline-flex items-center gap-2 rounded-full bg-terra px-9 py-4 font-display text-lg font-bold text-white shadow-xl shadow-terra/40 transition-all duration-300 hover:-translate-y-0.5 hover:bg-terradark"
+          >
+            {content.orderCta || "Jetzt bestellen"}
+            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </a>
+          <a
+            href="/#kontakt"
+            className="rounded-full border border-white/40 px-9 py-4 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/10"
+          >
+            Öffnungszeiten
+          </a>
+        </div>
       </div>
     </section>
   );
